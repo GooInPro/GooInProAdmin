@@ -22,3 +22,12 @@ export const deleteEmployer = async (eno) => {
 
     return res.data;
 }
+
+export const readEmployer = async (eno) => {
+
+    const res = await axios.get(`${host}/read/${eno}`);
+
+    console.log('readEmployer' + res.data);
+
+    return res.data;
+}
