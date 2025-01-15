@@ -14,6 +14,7 @@ export const getEmployerList = async (page) => {
     return res.data;
 }
 
+//고용인 삭제 api
 export const deleteEmployer = async (eno) => {
 
     const res = await axios.put(`${host}/delete/${eno}`);
@@ -23,6 +24,7 @@ export const deleteEmployer = async (eno) => {
     return res.data;
 }
 
+//고용인 상세 보기 api
 export const readEmployer = async (eno) => {
 
     const res = await axios.get(`${host}/read/${eno}`);
@@ -32,6 +34,7 @@ export const readEmployer = async (eno) => {
     return res.data;
 }
 
+//고용인 수 확인 api
 export const countEmployer = async () => {
 
     const res = await axios.get(`${host}/count`);
