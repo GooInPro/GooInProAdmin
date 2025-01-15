@@ -31,3 +31,12 @@ export const readEmployer = async (eno) => {
 
     return res.data;
 }
+
+export const countEmployer = async () => {
+
+    const res = await axios.get(`${host}/count`);
+
+    console.log('countEmployer' + res.data);
+
+    return res.data;
+}
