@@ -33,3 +33,13 @@ export const readJobPosting = async (jpno) => {
 
     return res.data;
 }
+
+//구인 공고 수 확인 api
+export const countJobPostings = async (jpno) => {
+
+    const res = await axios.get(`${host}/count`);
+
+    console.log('countJobPostings' + res.data);
+
+    return res.data;
+}
