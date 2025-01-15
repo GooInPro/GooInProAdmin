@@ -13,3 +13,13 @@ export const getAllJobPostingsList = async (page) => {
 
     return res.data;
 }
+
+//구인 공고 사세 보기 api
+export const readJobPosting = async (jpno) => {
+
+    const res = await axios.get(`${host}/read/${jpno}`)
+
+    console.log('readJobPosting' + res.data);
+
+    return res.data;
+}
