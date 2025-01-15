@@ -14,6 +14,16 @@ export const getAllJobPostingsList = async (page) => {
     return res.data;
 }
 
+//구인 공고 삭제 api
+export const deleteJobPosting = async (jpno) => {
+
+    const res = await axios.put(`${host}/delete/${jpno}`);
+
+    console.log('deleteJobPosting' + res.data);
+
+    return res.data;
+}
+
 //구인 공고 사세 보기 api
 export const readJobPosting = async (jpno) => {
 
