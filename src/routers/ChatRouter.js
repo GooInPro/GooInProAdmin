@@ -8,7 +8,8 @@ const ChatRouter = {
 
     path: '/chat', component: () => ChattingIndexPage(),
     children: [
-        {path: 'main', component: ChattingMainPage}
+        {path: 'main', component: ChattingMainPage},
+        {path: '',}
     ]
 
 }
