@@ -1,6 +1,6 @@
 import jwtAxios from "../../util/jwtUtil";
 
-const host = `${import.meta.env.VITE_API_HOST}/admin/api/v1/admin`;
+const host = `${import.meta.env.VITE_API_HOST}/admin`;
 
 // 관리자 목록 조회
 export const getAdminList = async (page, types, keyword) => {

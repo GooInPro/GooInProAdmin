@@ -4,12 +4,15 @@ import EmployerRouter from "./EmployerRouter.js";
 import JobPostingsRouter from "./JobPostingsRouter.js";
 import QNARouter from "./QNARouter.js";
 import FAQRouter from "./FAQRouter.js";
+import AdminRouter from "./AdminRouter.js";
 
 const routes = [
     EmployerRouter,
     JobPostingsRouter,
     QNARouter,
-    FAQRouter
+    FAQRouter,
+    AdminRouter
+
 ]
 
 const router = createRouter({

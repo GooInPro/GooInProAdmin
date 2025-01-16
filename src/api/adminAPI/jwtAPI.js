@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const host = `${import.meta.env.VITE_API_HOST}/admin/api/v1/jwt`;
+const host = `${import.meta.env.VITE_API_HOST}/jwt`;
 
 // 관리자 로그인 (토큰 발급)
 export const loginAdmin = async (loginData) => {
