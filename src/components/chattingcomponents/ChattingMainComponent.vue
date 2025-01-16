@@ -11,7 +11,7 @@ const inputValue = ref('');
 const user = 'admin'; // Current user (sender)
 const roomId = '23'; // Room ID
 const receiver = 'user1'; // Example receiver name
-const roomName = ref('');
+
 
 const connect = () => {
   const socket = new WebSocket('ws://localhost:8080/ws');
@@ -58,9 +58,6 @@ const sendMessageMethod = async () => {
   }
 };
 
-const handleDemo = () => {
-  console.log(roomName.value);
-}
 
 onMounted(() => {
   connect();
