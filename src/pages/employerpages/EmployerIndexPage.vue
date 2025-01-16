@@ -1,10 +1,14 @@
 <script setup>
 
-import EmployerSample from "../../components/employercomponents/EmployerSample.vue";
+  import SideBar from '../../layout/SideBar.vue'
+
+  console.log("IndexPage")
 </script>
 
 <template>
-  <EmployerSample/>
+
+    <RouterView/>
+
 </template>
 
 <style scoped>
