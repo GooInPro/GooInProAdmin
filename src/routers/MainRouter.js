@@ -1,9 +1,9 @@
 import {createRouter, createWebHistory} from "vue-router";
-import EmployerRouter from "./EmployerRouter.jsx";
-import JobPostingsRouter from "./JobPostingsRouter.jsx";
-import QNARouter from "./QNARouter.jsx";
-import FAQRouter from "./FAQRouter.jsx";
 
+import EmployerRouter from "./EmployerRouter.js";
+import JobPostingsRouter from "./JobPostingsRouter.js";
+import QNARouter from "./QNARouter.js";
+import FAQRouter from "./FAQRouter.js";
 
 const routes = [
     EmployerRouter,
