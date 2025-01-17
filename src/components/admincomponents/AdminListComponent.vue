@@ -14,10 +14,18 @@ const size = ref(10);
 const totalCount = ref(0);
 const page = ref(Number(route.query.page) || 1);
 
+// 권한 매핑 객체
+const roleMapping = {
+  '관리자 전체': '',
+  '슈퍼관리자': 'ROLE_SUPER',
+  '고객관리자': 'ROLE_CS',
+  '등록관리자': 'ROLE_GATE'
+}
+
 // 검색 관련 상태
 const searchType = ref('i'); // 'i': 아이디, 'n': 이름
 const searchKeyword = ref('');
-const roleFilter = ref('전체'); // 권한 필터
+const roleFilter = ref('관리자 전체');
 
 // 검색 타입 변경 함수
 const changeSearchType = (type) => {
@@ -32,12 +40,20 @@ const fetchAdminList = async () => {
     let types = searchType.value;
     let keyword = searchKeyword.value;
 
-    // 권한 필터가 '전체'가 아닐 경우 추가
-    if (roleFilter.value !== '전체') {
-      types += 'r';
-      keyword = roleFilter.value;
+    // 권한 필터링 처리
+    if (roleFilter.value !== '관리자 전체') {
+      if (searchKeyword.value) {
+        // 검색어가 있는 경우: 기존 검색 타입 + 권한 검색
+        types = searchType.value + 'r';
+        keyword = searchKeyword.value + ',' + roleMapping[roleFilter.value];
+      } else {
+        // 검색어가 없는 경우: 권한 검색만
+        types = 'r';
+        keyword = roleMapping[roleFilter.value];
+      }
     }
 
+    console.log('검색 조건:', { types, keyword }); // 디버깅용
     const response = await getAdminList(page.value, types, keyword);
     admins.value = response.dtoList;
     totalCount.value = response.totalCount;
@@ -113,21 +129,19 @@ const formatDate = (dateString) => {
         <div class="flex gap-2">
           <button
               @click="changeSearchType('i')"
-              class="px-4 py-2 rounded"
+              class="px-4 py-2 rounded transition-colors duration-150"
               :class="searchType === 'i'
                 ? 'bg-blue-500 text-white'
-                : 'bg-gray-200 text-gray-700'"
-              :disabled="searchType === 'n'"
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
           >
             아이디
           </button>
           <button
               @click="changeSearchType('n')"
-              class="px-4 py-2 rounded"
+              class="px-4 py-2 rounded transition-colors duration-150"
               :class="searchType === 'n'
                 ? 'bg-blue-500 text-white'
-                : 'bg-gray-200 text-gray-700'"
-              :disabled="searchType === 'i'"
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
           >
             이름
           </button>
@@ -143,15 +157,21 @@ const formatDate = (dateString) => {
       <!-- 권한 필터 -->
       <div class="flex gap-2">
         <button
-            v-for="role in ['전체', 'ROLE_SUPER', 'ROLE_CS', 'ROLE_GATE']"
+            v-for="role in Object.keys(roleMapping)"
             :key="role"
             @click="roleFilter = role"
-            class="px-4 py-2 rounded"
+            class="px-4 py-2 rounded transition-colors duration-150"
             :class="roleFilter === role
-              ? 'bg-blue-500 text-white'
-              : 'bg-gray-200 text-gray-700'"
+        ? 'bg-blue-500 text-white'
+        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
         >
           {{ role }}
+        </button>
+        <button
+            @click="router.push('/admin/register')"
+            class="ml-auto px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+        >
+          관리자 등록
         </button>
       </div>
     </div>
@@ -166,7 +186,6 @@ const formatDate = (dateString) => {
     <table v-if="!loading && !error" class="min-w-full table-auto border-collapse border border-gray-200">
       <thead class="bg-gray-100">
       <tr>
-        <th class="px-4 py-2 border-b">번호</th>
         <th class="px-4 py-2 border-b">아이디</th>
         <th class="px-4 py-2 border-b">이름</th>
         <th class="px-4 py-2 border-b">권한</th>
@@ -176,7 +195,6 @@ const formatDate = (dateString) => {
       <tbody>
       <tr v-for="admin in admins" :key="admin.admno" class="hover:bg-gray-50 cursor-pointer"
           @click="handleDetail(admin.admno)">
-        <td class="px-4 py-2 border-b">{{ admin.admno }}</td>
         <td class="px-4 py-2 border-b">{{ admin.admid }}</td>
         <td class="px-4 py-2 border-b">{{ admin.admname }}</td>
         <td class="px-4 py-2 border-b">{{ admin.admrole }}</td>

@@ -12,12 +12,12 @@ const AdminRouter = {
         {
             path: 'login',
             component: AdminLoginPage,
-            meta: { requiresGuest: true }  // 비로그인 사용자만 접근 가능
+            meta: { requiresGuest: true }
         },
         {
             path: 'list',
             component: AdminListPage,
-            meta: { requiresAuth: true }   // 인증된 사용자만 접근 가능
+            meta: { requiresAuth: true }
         },
         {
             path: 'register',
