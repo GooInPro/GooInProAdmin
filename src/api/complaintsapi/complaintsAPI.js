@@ -37,14 +37,15 @@ export const deleteComplaints = async (cno) => {
 
 //신고 답변 api
 export const answerComplaints = async (cno, canswer) => {
-
-    const res = await axios.put(`${host}/answer/${cno}`, canswer);
-
-    console.log("answerComplaints" + res.data);
-
+    const res = await axios.put(`${host}/answer/${cno}`, canswer, {
+        headers: {
+            'Content-Type': 'text/plain', // 단순 문자열로 전송
+        },
+    });
+    console.log("answerComplaints: ", res.data);
     return res.data;
+};
 
-}
 
 //신고 답변 완료 리스트 api
 export const getTComplaintsList = async (page) => {
