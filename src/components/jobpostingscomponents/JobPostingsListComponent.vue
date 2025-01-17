@@ -1,7 +1,7 @@
 <script setup>
 
   import {onMounted, ref, watch} from "vue";
-  import {getJobPostingsList} from "../../api/jobpostingsapi/jobPostingsAPI.js";
+  import {countJobPostings, getJobPostingsList} from "../../api/jobpostingsapi/jobPostingsAPI.js";
   import {useRoute, useRouter} from "vue-router";
 
   const props = defineProps({
@@ -99,7 +99,7 @@
 
 <template>
   <div class="p-4">
-    <h1 class="text-2xl font-semibold mb-6 text-gray-800">근로자 리스트</h1>
+    <h1 class="text-2xl font-semibold mb-6 text-gray-800">구인 공고 리스트</h1>
 
     <!-- 검색 입력 -->
     <div class="mb-6">

@@ -62,7 +62,7 @@ import {onMounted, ref, watch} from "vue";
 
 <template>
   <div class="p-4">
-    <h1 class="text-2xl font-semibold mb-4">근로자 리스트</h1>
+    <h1 class="text-2xl font-semibold mb-4">고용인 리스트</h1>
 
     <!-- 검색 입력 부분 (검색 기능은 사용자 구현) -->
     <div class="flex mb-4 gap-4">
@@ -75,7 +75,7 @@ import {onMounted, ref, watch} from "vue";
         />
       </div>
     </div>
-    <!-- 근로자 수 표시 -->
+    <!-- 고용인 수 표시 -->
     <div class="mb-4">
       <strong>총 고용인 수: </strong>{{ totalCount }}
     </div>

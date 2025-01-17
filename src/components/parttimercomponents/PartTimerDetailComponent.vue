@@ -39,6 +39,7 @@ const pno = route.params.pno; // URL에서 pno 값을 받아옵니다.
 const pemail = ref('');
 const roomId = ref('');
 
+
 // 페이지 번호를 쿼리에서 가져오기
 const page = route.query.page;
 
@@ -86,6 +87,7 @@ const startChattingClick = () => {
 }
 
 // 컴포넌트가 마운트될 때 데이터 로드
+
 onMounted(fetchPartTimerDetail);
 </script>
 
@@ -157,5 +159,5 @@ onMounted(fetchPartTimerDetail);
 </template>
 
 <style scoped>
-/* Tailwind CSS를 사용하므로 별도의 스타일 추가 필요 없음 */
+
 </style>

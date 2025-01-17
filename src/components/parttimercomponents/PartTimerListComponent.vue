@@ -16,7 +16,7 @@ const totalCount = ref(0); // 전체 항목 수
 const searchQuery = ref(''); // 이름 검색어
 const addressQuery = ref(''); // 주소 검색어
 
-// 초기 페이지를 URL에서 가져오거나 기본값 1로 설정
+
 const page = ref(Number(route.query.page) || 1);
 
 // 리스트 API 호출 함수
@@ -168,7 +168,7 @@ const formatDate = (dateString, includeTime = false) => {
           @click="changePage(page - 1)"
           class="px-4 py-2 rounded text-white bg-gray-300 hover:bg-gray-400"
       >
-        Prev
+        이전
       </button>
 
       <!-- 페이지 버튼 -->
@@ -188,7 +188,7 @@ const formatDate = (dateString, includeTime = false) => {
           @click="changePage(page + 1)"
           class="px-4 py-2 rounded text-white bg-gray-300 hover:bg-gray-400"
       >
-        Next
+        다음
       </button>
     </div>
   </div>

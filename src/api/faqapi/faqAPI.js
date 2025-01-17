@@ -46,11 +46,11 @@ export const deleteFAQ = async (fno) => {
 }
 
 //faq 수정 api
-export const editFAQ = async (fno) => {
+export const editFAQ = async (fno, updatedData) => {
 
-    const res = await axios.put(`${host}/edit/${fno}`);
+    const res = await axios.put(`${host}/edit/${fno}`, updatedData);
 
-    console.log("editFAQ" + res.data);
+    console.log("editFAQ", res.data);
 
     return res.data;
 }
