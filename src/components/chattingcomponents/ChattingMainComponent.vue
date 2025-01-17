@@ -1,22 +1,30 @@
 <script setup>
-import {ref, onMounted, onBeforeMount} from "vue";
-import {getMessage, sendMessage} from "../../api/chatapi/chatAPI.js";
+import { ref, onMounted, onBeforeMount, watch } from "vue";
+import { getMessage, sendMessage } from "../../api/chatapi/chatAPI.js";
 import Stomp from 'stompjs';
+import { useRoute, useRouter } from "vue-router";
+import {deletePartChat} from "../../api/chatroomapi/chatRoomAPI.js";
+
+const route = useRoute();
+const router = useRouter();
 
 // Props를 별도의 변수로 선언
-const roomId =  ''
-const receiverEmail = ''
+const roomId = ref(route.params.roomId);
+const receiverEmail = ref(route.params.eemail);
+const eno = ref(route.params.eno);
 
 const stompClient = ref(null);
 const messages = ref([]);
 const inputValue = ref('');
 const user = 'admin'; // Current user (sender)
 
+
+
 const connect = () => {
   const socket = new WebSocket('ws://localhost:8080/ws');
   stompClient.value = Stomp.over(socket);
   stompClient.value.connect({}, () => {
-    stompClient.value.subscribe(`/sub/chatroom/${roomId}`, (message) => {
+    stompClient.value.subscribe(`/sub/chatroom/${roomId.value}`, (message) => {
       const newMessage = JSON.parse(message.body);
       messages.value.push(newMessage);
     });
@@ -31,7 +39,8 @@ const disconnect = () => {
 
 const getMessageMethod = async () => {
   try {
-    const response = await getMessage(user, receiverEmail);
+    messages.value = []; // Clear previous messages
+    const response = await getMessage(roomId.value);
     if (response && Array.isArray(response)) {
       messages.value = [...response];
     }
@@ -44,10 +53,10 @@ const sendMessageMethod = async () => {
   if (stompClient.value && inputValue.value) {
     const body = {
       sender: user,
-      receiver: receiverEmail,
+      receiver: receiverEmail.value,
       message: inputValue.value,
       timestamp: new Date().toISOString(),
-      roomId: String(roomId),
+      roomId: String(roomId.value),
     };
 
     stompClient.value.send('/pub/message', {}, JSON.stringify(body));
@@ -61,14 +70,40 @@ onMounted(() => {
   getMessageMethod();
 });
 
+// Watch for changes in route.params
+watch(
+    () => route.params,
+    (newParams) => {
+      roomId.value = newParams.roomId;
+      receiverEmail.value = newParams.eemail;
+      getMessageMethod(); // Fetch messages for the new room
+    },
+    {immediate: true}
+);
+
 onBeforeMount(() => {
   disconnect();
 });
+
+const leaveChatRoom = () => {
+  deletePartChat(roomId.value).then((res) => {
+    console.log(res);
+  })
+  disconnect();
+  router.push('/employer/list'); // 원하는 경로로 리다이렉트
+};
 </script>
 
 <template>
   <div class="flex items-center justify-center h-screen bg-gray-200">
     <div class="w-2/3 h-2/3 bg-white shadow-lg rounded-lg flex flex-col">
+      <div class="flex justify-between items-center p-4 border-b">
+        <h2 class="text-xl font-bold">채팅방</h2>
+        <button @click="leaveChatRoom"
+                class="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600">
+          나가기
+        </button>
+      </div>
       <div class="flex-grow overflow-y-auto p-4">
         <div v-for="(item, index) in messages" :key="index" class="flex mb-4"
              :class="{'justify-start': item.sender !== user, 'justify-end': item.sender === user}">

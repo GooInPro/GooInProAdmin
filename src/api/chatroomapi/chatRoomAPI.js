@@ -12,15 +12,6 @@ export const getEmpChatRoom = async (eno) => {
     return res.data;
 }
 
-export const deleteEmpChatRoom = async (eno) => {
-
-    const res = await axios.delete(`${host}/delete/emp/${eno}`)
-
-    console.log(res);
-
-    return res.data;
-}
-
 export const getPartChatRoom = async (pno) => {
 
     const res = await axios.get(`${host}/get/part/${pno}`)
@@ -30,9 +21,9 @@ export const getPartChatRoom = async (pno) => {
     return res.data;
 }
 
-export const deletePartChatRoom = async (pno) => {
+export const deletePartChat = async (rno) => {
 
-    const res = await axios.delete(`${host}/delete/part/${pno}`)
+    const res = await axios.delete(`${host}/delete/all/${rno}`)
 
     console.log(res);
 

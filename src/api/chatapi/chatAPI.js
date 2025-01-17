@@ -3,9 +3,9 @@ import axios from "axios";
 
 const host = `${import.meta.env.VITE_API_HOST}/chatmessage`;
 
-export const getMessage = async (user, receiver) => {
+export const getMessage = async (roomId) => {
 
-    const res = await axios.get(`${host}/chat?sender=${user}&receiver=${receiver}`)
+    const res = await axios.get(`${host}/chat?roomId=${roomId}`)
 
     console.log(res);
 
