@@ -4,7 +4,7 @@ import JobPostingsListComponent from "../../components/jobpostingscomponents/Job
 </script>
 
 <template>
-  <JobPostingsListComponent/>
+  <JobPostingsListComponent eno="0"/>
 </template>
 
 <style scoped>
