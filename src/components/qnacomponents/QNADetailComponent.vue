@@ -23,7 +23,7 @@ const qno = route.params.qno as string;
 const qnaDetail = ref<QNADetailDTO | null>(null);
 const newAnswer = ref<string>('');
 
-const adminAuthStore = useAdminAuthStore(); // 관리자 인증 스토어 가져오기
+const adminAuthStore = useAdminAuthStore();
 const adminNo = ref(adminAuthStore.adminNo); // 관리자 번호
 const adminName = ref(adminAuthStore.adminName); // 관리자 이름
 
@@ -36,12 +36,25 @@ const fetchQnaDetail = async () => {
   }
 };
 
+// 한국 시간으로 날짜 포맷팅
+const formatDateToKST = (dateString: string): string => {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat('ko-KR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    timeZone: 'Asia/Seoul',
+  }).format(date);
+};
+
 const goBack = () => {
   const page = route.query.page || 1;
   const statusQuery = route.query.status || 'false';
   router.push({ path: '/qna/list', query: { page, status: statusQuery } });
 };
-
 
 const deleteQna = async () => {
   try {
@@ -75,15 +88,12 @@ onMounted(() => {
 });
 </script>
 
-
-
-
 <template>
   <div class="container mx-auto p-4">
     <div v-if="qnaDetail" class="bg-white rounded-lg shadow-md p-6">
       <h2 class="text-2xl font-semibold text-gray-700 mb-4">{{ qnaDetail.qtitle }}</h2>
-      <p class="text-sm text-gray-500 mb-2">등록일: {{ qnaDetail.qregdate }}</p>
-      <p class="text-sm text-gray-500 mb-4">수정일: {{ qnaDetail.qmoddate || '없음' }}</p>
+      <p class="text-sm text-gray-500 mb-2">등록일: {{ formatDateToKST(qnaDetail.qregdate) }}</p>
+      <p class="text-sm text-gray-500 mb-4">수정일: {{ qnaDetail.qmoddate ? formatDateToKST(qnaDetail.qmoddate) : '없음' }}</p>
 
       <div class="mb-4">
         <h3 class="text-xl font-semibold text-gray-600">문의자: {{ qnaDetail.pname }}</h3>
@@ -138,10 +148,5 @@ onMounted(() => {
   </div>
 </template>
 
-
-
 <style scoped>
 </style>
-
-
-

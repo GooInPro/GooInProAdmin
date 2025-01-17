@@ -29,7 +29,7 @@ const submitFAQ = async () => {
       ftitle: title.value,
       fcontent: content.value,
       fcategory: category.value,
-      admno: adminNo, // 관리자 번호 포함 (수정된 키 이름)
+      admno: adminNo,
     };
 
     console.log('전송 데이터:', newFAQ);

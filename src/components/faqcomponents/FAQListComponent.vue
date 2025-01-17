@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';  // computed 임포트 추가
-import { useRouter, useRoute } from 'vue-router'; // Vue Router 사용
-import { getFAQList } from '../../api/faqapi/faqAPI.js'; // API 파일에서 가져오기
+import { ref, onMounted, computed } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+import { getFAQList } from '../../api/faqapi/faqAPI.js';
 
-// FAQ 리스트 데이터 타입 정의
+// FAQ 리스트 데이터 타입
 interface FAQListDTO {
   fno: number;
   admname: string;
@@ -56,9 +56,9 @@ const goToDetail = (fno: number) => {
   router.push({ path: `/faq/detail/${fno}`, query: { page: currentPage.value } });
 };
 
-// 등록하기 페이지로 이동 (새로운 FAQ 추가)
+// 등록하기 페이지로 이동
 const goToRegister = () => {
-  router.push({ path: '/faq/register' }); // 등록 페이지로 이동
+  router.push({ path: '/faq/register' });
 };
 
 // 컴포넌트가 마운트될 때 FAQ 리스트를 가져옴
@@ -90,10 +90,9 @@ const totalPages = computed(() => Math.ceil(totalCount.value / pageSize.value));
       <table class="min-w-full table-auto border-collapse border border-gray-300">
         <thead class="bg-gray-100">
         <tr>
-          <th class="px-4 py-2 border-b">번호</th>
-          <th class="px-4 py-2 border-b">관리자</th>
-          <th class="px-4 py-2 border-b">제목</th>
           <th class="px-4 py-2 border-b">카테고리</th>
+          <th class="px-4 py-2 border-b">제목</th>
+          <th class="px-4 py-2 border-b">작성자</th>
         </tr>
         </thead>
         <tbody>
@@ -103,10 +102,9 @@ const totalPages = computed(() => Math.ceil(totalCount.value / pageSize.value));
             class="hover:bg-gray-50 cursor-pointer"
             @click="goToDetail(faq.fno)"
         >
-          <td class="px-4 py-2 border-b">{{ faq.fno }}</td>
-          <td class="px-4 py-2 border-b">{{ faq.admname }}</td>
-          <td class="px-4 py-2 border-b">{{ faq.ftitle }}</td>
           <td class="px-4 py-2 border-b">{{ faq.fcategory }}</td>
+          <td class="px-4 py-2 border-b">{{ faq.ftitle }}</td>
+          <td class="px-4 py-2 border-b">{{ faq.admname }}</td>
         </tr>
         </tbody>
       </table>

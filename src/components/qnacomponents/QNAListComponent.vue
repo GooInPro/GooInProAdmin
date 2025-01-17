@@ -1,34 +1,31 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { getFQNAList, getTQNAList } from '../../api/qnaapi/qnaAPI.js'; // API 호출 함수 경로에 맞게 수정
-import {useRoute, useRouter} from 'vue-router'; // Vue Router import
+import { getFQNAList, getTQNAList } from '../../api/qnaapi/qnaAPI.js';
+import { useRoute, useRouter } from 'vue-router';
 
-const router = useRouter(); // Router 사용
+const router = useRouter();
 const route = useRoute();
 
-const currentPage = ref<number>(Number(route.query.page) || 1);  // 현재 페이지
-const totalPages = ref(1);  // 전체 페이지 수
-
-// 답변 대기 리스트와 답변 완료 리스트
+const currentPage = ref<number>(Number(route.query.page) || 1);
+const totalPages = ref(1);
 const fqnaList = ref([]);
 const tqnaList = ref([]);
+const status = ref('false');
 
 const fetchFQNAList = async (page = 1) => {
   const response = await getFQNAList(page);
   fqnaList.value = response.dtoList;
-  totalPages.value = Math.ceil(response.totalCount / response.pageRequestDTO.size); // 전체 페이지 수 계산
+  totalPages.value = Math.ceil(response.totalCount / response.pageRequestDTO.size);
 };
 
 const fetchTQNAList = async (page = 1) => {
   const response = await getTQNAList(page);
   tqnaList.value = response.dtoList;
-  totalPages.value = Math.ceil(response.totalCount / response.pageRequestDTO.size); // 전체 페이지 수 계산
+  totalPages.value = Math.ceil(response.totalCount / response.pageRequestDTO.size);
 };
 
-// 페이지네이션 핸들러
 const changePage = (page: number) => {
   currentPage.value = page;
-
   router.push({
     path: route.path,
     query: { page: currentPage.value, status: status.value },
@@ -41,32 +38,35 @@ const changePage = (page: number) => {
   }
 };
 
-
-
-
-// 상세보기 페이지로 이동
 const goToDetail = (qno: number) => {
   router.push({ path: `/qna/detail/${qno}`, query: { page: currentPage.value, status: status.value } });
 };
 
+const formatDate = (date: string) => {
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true, // 24시간 형식
+  };
 
-const status = ref('false'); // 'false'이면 답변 대기, 'true'이면 답변 완료 리스트
+  const formattedDate = new Date(date).toLocaleString('ko-KR', options);
+  return formattedDate;
+};
 
-// 초기 데이터 로드
 onMounted(() => {
-  // 쿼리에서 페이지 번호와 상태 읽기
   currentPage.value = Number(route.query.page) || 1;
   status.value = route.query.status === 'true' ? 'true' : 'false';
 
-  // 초기 데이터 로드
   if (status.value === 'false') {
     fetchFQNAList(currentPage.value);
   } else {
     fetchTQNAList(currentPage.value);
   }
 });
-
-
 </script>
 
 <template>
@@ -107,10 +107,10 @@ onMounted(() => {
       <table class="min-w-full table-auto bg-white rounded-lg shadow-md border border-gray-300">
         <thead>
         <tr class="bg-gray-100">
-          <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">제목</th>
-          <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">문의자</th>
-          <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">등록일</th>
-          <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">상태</th>
+          <th class="px-4 py-2 border-b">제목</th>
+          <th class="px-4 py-2 border-b">문의자</th>
+          <th class="px-4 py-2 border-b">등록일</th>
+          <th class="px-4 py-2 border-b">상태</th>
         </tr>
         </thead>
         <tbody>
@@ -118,7 +118,7 @@ onMounted(() => {
             @click="goToDetail(qna.qno)">
           <td class="px-6 py-4 text-sm text-gray-800">{{ qna.qtitle }}</td>
           <td class="px-6 py-4 text-sm text-gray-600">{{ qna.pname }}</td>
-          <td class="px-6 py-4 text-sm text-gray-500">{{ qna.qregdate }}</td>
+          <td class="px-6 py-4 text-sm text-gray-500">{{ formatDate(qna.qregdate) }}</td>
           <td class="px-6 py-4 text-sm text-gray-500">{{ qna.qstatus ? '답변 완료' : '대기 중' }}</td>
         </tr>
         </tbody>
@@ -130,10 +130,10 @@ onMounted(() => {
       <table class="min-w-full table-auto bg-white rounded-lg shadow-md border border-gray-300">
         <thead>
         <tr class="bg-gray-100">
-          <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">제목</th>
-          <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">문의자</th>
-          <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">등록일</th>
-          <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">상태</th>
+          <th class="px-4 py-2 border-b">제목</th>
+          <th class="px-4 py-2 border-b">문의자</th>
+          <th class="px-4 py-2 border-b">등록일</th>
+          <th class="px-4 py-2 border-b">상태</th>
         </tr>
         </thead>
         <tbody>
@@ -141,7 +141,7 @@ onMounted(() => {
             @click="goToDetail(qna.qno)">
           <td class="px-6 py-4 text-sm text-gray-800">{{ qna.qtitle }}</td>
           <td class="px-6 py-4 text-sm text-gray-600">{{ qna.pname }}</td>
-          <td class="px-6 py-4 text-sm text-gray-500">{{ qna.qregdate }}</td>
+          <td class="px-6 py-4 text-sm text-gray-500">{{ formatDate(qna.qregdate) }}</td>
           <td class="px-6 py-4 text-sm text-gray-500">{{ qna.qstatus ? '답변 완료' : '대기 중' }}</td>
         </tr>
         </tbody>

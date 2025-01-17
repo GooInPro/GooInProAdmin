@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import { detailFAQ, editFAQ } from '../../api/faqapi/faqAPI.js'; // API 함수 가져오기
+import { detailFAQ, editFAQ } from '../../api/faqapi/faqAPI.js';
 
 // 라우터에서 fno 가져오기
 const route = useRoute();
 const router = useRouter();
-const fno = Number(route.params.fno); // URL 파라미터에서 fno 가져오기
+const fno = Number(route.params.fno);
 
 // 상태 관리
 const faqData = ref({
   ftitle: '',
   fcategory: '',
   fcontent: '',
-}); // 수정할 FAQ 데이터
+});
 
 const loading = ref<boolean>(false);
 const error = ref<string>('');

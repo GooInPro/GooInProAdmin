@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { detailFAQ, deleteFAQ } from '../../api/faqapi/faqAPI.js'; // FAQ 상세보기 API 호출 함수
+import { detailFAQ, deleteFAQ } from '../../api/faqapi/faqAPI.js';
 
 // FAQ 상세 정보 타입 정의
 interface FAQDetailDTO {
@@ -45,7 +45,6 @@ const deleteFaq = async () => {
   if (faqDetail.value) {
     try {
       await deleteFAQ(faqDetail.value.fno);
-      // 삭제 성공 후 FAQ 목록 페이지로 리다이렉트
       router.push('/faq/list');
     } catch (err) {
       console.error('FAQ 삭제 중 오류 발생:', err);
@@ -64,7 +63,7 @@ const goToEditPage = () => {
 // 리스트 페이지로 돌아가기
 const goToListPage = () => {
   if (page) {
-    router.push(`/faq/list?page=${page}`); // 쿼리 파라미터와 함께 리스트 페이지로 이동
+    router.push(`/faq/list?page=${page}`);
   } else {
     router.push('/faq/list'); // 페이지 정보가 없으면 기본 리스트로 이동
   }

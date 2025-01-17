@@ -16,7 +16,7 @@ const totalCount = ref(0); // 전체 항목 수
 const searchQuery = ref(''); // 이름 검색어
 const addressQuery = ref(''); // 주소 검색어
 
-// 초기 페이지를 URL에서 가져오거나 기본값 1로 설정
+
 const page = ref(Number(route.query.page) || 1);
 
 // 리스트 API 호출 함수
