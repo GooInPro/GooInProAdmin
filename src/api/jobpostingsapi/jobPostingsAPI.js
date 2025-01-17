@@ -11,6 +11,8 @@ export const getJobPostingsList = async (eno, page, jpname) => {
         ? `${host}/list/${eno}?jpname=${jpname}&page=${pageValue}`
         : `${host}/list/${eno}?page=${pageValue}`
 
+    console.log(url);
+
     const res = await axios.get(url);
 
     console.log(res.data);
