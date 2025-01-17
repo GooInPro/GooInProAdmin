@@ -9,7 +9,7 @@ export const getEmployerList = async (page) => {
 
     const res = await axios.get(`${host}/list?page=${pageValue}`);
 
-    console.log('getEmployerList' + res.data);
+    console.log(res.data);
 
     return res.data;
 }
@@ -19,7 +19,7 @@ export const deleteEmployer = async (eno) => {
 
     const res = await axios.put(`${host}/delete/${eno}`);
 
-    console.log('deleteEmployer' + res.data);
+    console.log(res.data);
 
     return res.data;
 }
@@ -29,7 +29,7 @@ export const readEmployer = async (eno) => {
 
     const res = await axios.get(`${host}/read/${eno}`);
 
-    console.log('readEmployer' + res.data);
+    console.log(res.data);
 
     return res.data;
 }
@@ -39,7 +39,7 @@ export const countEmployer = async () => {
 
     const res = await axios.get(`${host}/count`);
 
-    console.log('countEmployer' + res.data);
+    console.log(res.data);
 
     return res.data;
 }

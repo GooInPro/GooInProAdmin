@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <RouterView/>
+  <h1>Graph List Component</h1>
 </template>
 
 <style scoped>
