@@ -30,9 +30,9 @@
   const router = useRouter();
 
 
-  const linkClick = (eno) => {
+  const linkClick = (jpno) => {
 
-    router.push({path: `/jobPostings/read/${eno}`})
+    router.push({path: `/jobPostings/read/${jpno}`})
   }
 
   const changePage = (page) => {
