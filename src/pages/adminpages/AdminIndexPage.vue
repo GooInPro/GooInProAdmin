@@ -3,7 +3,8 @@
 </script>
 
 <template>
-  <h1>Chatting Start Component</h1>
+<router-view />
+
 </template>
 
 <style scoped>
