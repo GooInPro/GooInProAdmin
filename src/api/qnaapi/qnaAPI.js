@@ -17,25 +17,26 @@ export const getQNAList = async (page) => {
 //QNA 답변 대기 리스트 api
 export const getFQNAList = async (page) => {
 
-    const pageValue = (Number)(page || 1);
-    const res = await axios.get(`${host}/list/false?page=${pageValue}`);
+    const pageValue = Number(page || 1);
 
-    console.log("getQNAList" + res.data);
+    const res = await axios.get(`${host}/statuslist/false?page=${pageValue}`);
+
+    console.log("getFQNAList", res.data);
 
     return res.data;
-}
+};
 
 //QNA 답변 완료 리스트 api
 export const getTQNAList = async (page) => {
 
-    const pageValue = (Number)(page || 1);
+    const pageValue = Number(page || 1);
 
-    const res = await axios.get(`${host}/list/true?page=${pageValue}`);
+    const res = await axios.get(`${host}/statuslist/true?page=${pageValue}`);
 
-    console.log("getQNAList" + res.data);
+    console.log("getTQNAList", res.data);
 
     return res.data;
-}
+};
 
 //QNA 상세보기 api
 export const detailQNA = async (qno) => {
@@ -58,9 +59,9 @@ export const deleteQNA = async (qno) => {
 }
 
 //QNA 답변 api
-export const answerQNA = async (admno, answerAdmin) => {
+export const answerQNA = async (qno, answerAdmin) => {
 
-    const res = await axios.put(`${host}/answer/${admno}`, answerAdmin);
+    const res = await axios.put(`${host}/answer/${qno}`, answerAdmin);
 
     console.log("answerQNA" + res.data);
 
