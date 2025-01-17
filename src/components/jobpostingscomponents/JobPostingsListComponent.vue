@@ -1,7 +1,7 @@
 <script setup>
 
   import {onMounted, ref, watch} from "vue";
-  import {getJobPostingsList} from "../../api/jobpostingsapi/jobPostingsAPI.js";
+  import {countJobPostings, getJobPostingsList} from "../../api/jobpostingsapi/jobPostingsAPI.js";
   import {useRoute, useRouter} from "vue-router";
 
   const props = defineProps({
@@ -34,6 +34,7 @@
   const pageNumList = ref([]);
   const currentPage = ref(1);
   const searchQuery = ref('');
+  const totalCount = ref(0);
 
   const route = useRoute();
   const router = useRouter();
@@ -93,13 +94,18 @@
       pageNumList.value = res.pageNumList;
       console.log(jobPostings.value);
     })
+
+    countJobPostings().then((res) => {
+
+      totalCount.value = res;
+    })
   })
 
 </script>
 
 <template>
   <div class="p-4">
-    <h1 class="text-2xl font-semibold mb-6 text-gray-800">근로자 리스트</h1>
+    <h1 class="text-2xl font-semibold mb-6 text-gray-800">구인 공고 리스트</h1>
 
     <!-- 검색 입력 -->
     <div class="mb-6">
@@ -109,6 +115,10 @@
           placeholder="검색어를 입력하세요"
           class="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
       />
+    </div>
+
+    <div class="mb-4">
+      <strong>총 구인 공고 수: </strong>{{ totalCount }}
     </div>
 
     <!-- 테이블 -->
