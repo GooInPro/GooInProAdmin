@@ -1,7 +1,9 @@
-import SideBar from "../layout/SideBar.vue";
+
 
 const ChattingIndexPage = () => import('../pages/employerpages/EmployerIndexPage.vue')
 const ChattingMainPage = () => import('../pages/chattingpages/ChattingMainPage.vue')
+const ChattingStartPage = () => import('../pages/chattingpages/ChattingStartPage.vue')
+
 
 
 const ChatRouter = {
@@ -9,7 +11,7 @@ const ChatRouter = {
     path: '/chat', component: () => ChattingIndexPage(),
     children: [
         {path: 'main', component: ChattingMainPage},
-        {path: '',}
+        {path: 'start', component: ChattingStartPage}
     ]
 
 }
