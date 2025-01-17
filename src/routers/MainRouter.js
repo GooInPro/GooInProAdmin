@@ -1,4 +1,5 @@
 import {createRouter, createWebHistory} from "vue-router";
+import { useAdminAuthStore } from '../stores/adminauthstore'
 
 import EmployerRouter from "./EmployerRouter.js";
 import JobPostingsRouter from "./JobPostingsRouter.js";
