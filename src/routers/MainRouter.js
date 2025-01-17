@@ -7,6 +7,7 @@ import FAQRouter from "./FAQRouter.js";
 import ChatRouter from "./ChatRouter.js";
 import PartTimerRouter from "./PartTimerRouter.js";
 import ComplaintsRouter from "./ComplaintsRouter.js";
+import graphRouter from "./GraphRouter.js";
 
 const routes = [
     EmployerRouter,
@@ -16,7 +17,8 @@ const routes = [
     ChatRouter,
     FAQRouter,
     PartTimerRouter,
-    ComplaintsRouter
+    ComplaintsRouter,
+    graphRouter
 ]
 
 const router = createRouter({
