@@ -2,14 +2,14 @@ import axios from "axios";
 
 const host = `${import.meta.env.VITE_API_HOST}/jobPostings`;
 
-//모든 구인 공고 리스트 호출 api
-export const getAllJobPostingsList = async (page) => {
+//구인 공고 리스트 호출 api(eno = 0 이면 전체 리스트 호출)
+export const getJobPostingsList = async (eno, page) => {
 
     const pageValue = (Number)(page || 1);
 
-    const res = await axios.get(`${host}/allList?page=${pageValue}`);
+    const res = await axios.get(`${host}/list/${eno}?page=${pageValue}`);
 
-    console.log("getAllJobPostingsList" + res.data);
+    console.log(res.data);
 
     return res.data;
 }
@@ -19,7 +19,7 @@ export const deleteJobPosting = async (jpno) => {
 
     const res = await axios.put(`${host}/delete/${jpno}`);
 
-    console.log('deleteJobPosting' + res.data);
+    console.log(res.data);
 
     return res.data;
 }
@@ -29,7 +29,7 @@ export const readJobPosting = async (jpno) => {
 
     const res = await axios.get(`${host}/read/${jpno}`)
 
-    console.log('readJobPosting' + res.data);
+    console.log(res.data);
 
     return res.data;
 }
@@ -39,7 +39,7 @@ export const countJobPostings = async (jpno) => {
 
     const res = await axios.get(`${host}/count`);
 
-    console.log('countJobPostings' + res.data);
+    console.log(res.data);
 
     return res.data;
 }

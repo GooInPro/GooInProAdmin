@@ -1,22 +1,12 @@
 <script setup>
   import {onMounted, ref} from "vue";
   import {deleteEmployer, readEmployer} from "../../api/employerapi/employerAPI.js";
-  import {useRoute, useRouter} from "vue-router";
+  import {useRoute} from "vue-router";
   import CommonCheckModalComponent from "../../common/components/CommonCheckModalComponent.vue";
 
-  const init = {
-    eemail: '',
-    ename: '',
-    egender: true,
-    eno: 0,
-    ebirth: '',
-    eregdate: ''
-  }
-
   const route = useRoute();
-  const router = useRouter();
 
-  const employer = ref(init);
+  const employer = ref();
   const modalOpen = ref(false);
 
   const deleteClick = () => {
