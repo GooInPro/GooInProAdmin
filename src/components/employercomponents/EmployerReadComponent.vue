@@ -4,6 +4,7 @@
   import {useRoute, useRouter} from "vue-router";
   import CommonCheckModalComponent from "../../common/components/CommonCheckModalComponent.vue";
   import {getEmpChatRoom} from "../../api/chatroomapi/chatRoomAPI.js";
+  import JobPostingsListComponent from "../jobpostingscomponents/JobPostingsListComponent.vue";
 
   const route = useRoute();
   const router = useRouter();
@@ -123,6 +124,8 @@
           </button>
         </div>
       </template>
+
+      <JobPostingsListComponent :eno="route.params.eno" />
     </div>
   </div>
 </template>

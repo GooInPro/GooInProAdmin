@@ -2,12 +2,18 @@ import axios from "axios";
 
 const host = `${import.meta.env.VITE_API_HOST}/jobPostings`;
 
-//구인 공고 리스트 호출 api(eno = 0 이면 전체 리스트 호출)
-export const getJobPostingsList = async (eno, page) => {
+//구인 공고 리스트 호출 api(eno = 0 이면 전체 리스트 호출, jpname != null 이면 jpname 검색 결과 리스트 출력)
+export const getJobPostingsList = async (eno, page, jpname) => {
 
     const pageValue = (Number)(page || 1);
 
-    const res = await axios.get(`${host}/list/${eno}?page=${pageValue}`);
+    const url = jpname && jpname.length > 0
+        ? `${host}/list/${eno}?jpname=${jpname}&page=${pageValue}`
+        : `${host}/list/${eno}?page=${pageValue}`
+
+    console.log(url);
+
+    const res = await axios.get(url);
 
     console.log(res.data);
 
