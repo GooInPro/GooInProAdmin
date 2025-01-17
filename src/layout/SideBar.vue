@@ -83,7 +83,7 @@ function togglePagesMenu() {
         <li class="relative px-6 py-3">
           <RouterLink
               class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-blue-800 dark:hover:text-blue-200"
-              :to="`/employer/list`"
+              :to="`/jobPostings/list`"
           >
             <svg
                 class="w-5 h-5"
