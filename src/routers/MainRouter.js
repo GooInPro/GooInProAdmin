@@ -1,5 +1,4 @@
 import {createRouter, createWebHistory} from "vue-router";
-import { useAdminAuthStore } from '../stores/adminauthstore'
 
 import EmployerRouter from "./EmployerRouter.js";
 import JobPostingsRouter from "./JobPostingsRouter.js";
@@ -8,6 +7,7 @@ import FAQRouter from "./FAQRouter.js";
 import ChatRouter from "./ChatRouter.js";
 import PartTimerRouter from "./PartTimerRouter.js";
 import ComplaintsRouter from "./ComplaintsRouter.js";
+import graphRouter from "./GraphRouter.js";
 import AdminRouter from "./AdminRouter.js";
 
 const routes = [
@@ -19,7 +19,8 @@ const routes = [
     FAQRouter,
     PartTimerRouter,
     ComplaintsRouter,
-    AdminRouter
+    AdminRouter,
+    graphRouter
 ]
 
 const router = createRouter({
@@ -50,6 +51,7 @@ router.beforeEach((to, from, next) => {
         to.path.startsWith('/qna') ||
         to.path.startsWith('/chat') ||
         to.path.startsWith('/parttimer') ||
+        to.path.startsWith('/graph') ||
         to.path.startsWith('/complaints')) {
 
         if (!isAuthenticated) {

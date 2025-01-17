@@ -22,13 +22,15 @@ function togglePagesMenu() {
     'w-64 h-screen overflow-y-auto bg-white dark:bg-blue-900 md:block flex-shrink-0': true
   }"
   >
+
     <div class="py-4 text-gray-500 dark:text-gray-400">
+      <router-link to="/">
       <a
           class="ml-6 text-lg font-bold text-blue-800 dark:text-blue-200"
-          href="#"
       >
         Windmill
       </a>
+      </router-link>
       <ul class="mt-6">
         <li class="relative px-6 py-3">
           <span

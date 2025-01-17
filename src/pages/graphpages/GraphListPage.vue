@@ -5,7 +5,6 @@ import GraphListComponent from "../../components/graphcomponents/GraphListCompon
 
 <template>
   <GraphListComponent/>
-  <
 </template>
 <style scoped>
 
