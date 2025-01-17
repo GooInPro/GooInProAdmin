@@ -37,10 +37,12 @@ function togglePagesMenu() {
               class="absolute inset-y-0 left-0 w-1 bg-blue-600 rounded-tr-lg rounded-br-lg"
               aria-hidden="true"
           ></span>
+          <router-link to="/">
           <a
               class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-blue-800 dark:hover:text-blue-200 dark:text-gray-100"
-              href="index.html"
+
           >
+
             <svg
                 class="w-5 h-5"
                 aria-hidden="true"
@@ -57,6 +59,7 @@ function togglePagesMenu() {
             </svg>
             <span class="ml-4">Dashboard</span>
           </a>
+          </router-link>
         </li>
       </ul>
       <ul>
