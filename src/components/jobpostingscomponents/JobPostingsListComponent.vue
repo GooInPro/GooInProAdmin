@@ -60,7 +60,7 @@ import {onMounted, ref, watch} from "vue";
 
     eno.value = newEno;
 
-    getJobPostingsList(eno.value, currentPage, searchName.value).then((res) => {
+    getJobPostingsList(eno.value, currentPage.value, searchName.value).then((res) => {
 
       jobPostings.value = res.dtoList;
       pageNumList.value = res.pageNumList;
@@ -72,7 +72,7 @@ import {onMounted, ref, watch} from "vue";
 
     eno.value = props.eno;
 
-    getJobPostingsList(eno.value, currentPage, searchName.value).then((res) => {
+    getJobPostingsList(eno.value, currentPage.value, searchName.value).then((res) => {
 
       jobPostings.value = res.dtoList;
       pageNumList.value = res.pageNumList;
