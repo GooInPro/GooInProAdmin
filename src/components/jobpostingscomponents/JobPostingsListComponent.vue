@@ -1,8 +1,16 @@
 <script setup>
 
-  import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
   import {getJobPostingsList} from "../../api/jobpostingsapi/jobPostingsAPI.js";
   import {useRoute, useRouter} from "vue-router";
+
+  const props = defineProps({
+
+    eno: {
+      type: Number,
+      required: true
+    }
+  })
 
   const formatDate = (isoString) => {
     if (!isoString) return "유효하지 않은 날짜";
@@ -20,9 +28,8 @@
     }).format(date);
   };
 
-
-
   const jobPostings = ref([]);
+  const eno = ref(0);
 
   const pageNumList = ref([]);
   const currentPage = ref(1);
@@ -39,16 +46,32 @@
 
     router.push({ query: { ...route.query, page } });
 
-    getJobPostingsList(0, page).then((res) => {
+    getJobPostingsList(eno.value, page).then((res) => {
 
       jobPostings.value = res.dtoList;
       currentPage.value = page;
     })
   }
 
+
+  // eno prop의 변경을 감지하여 데이터 업데이트
+  watch(() => props.eno, (newEno) => {
+
+    eno.value = newEno;
+
+    getJobPostingsList(eno.value).then((res) => {
+
+      jobPostings.value = res.dtoList;
+      pageNumList.value = res.pageNumList;
+      currentPage.value = 1; // 첫 번째 페이지로 설정
+    });
+  });
+
   onMounted(() => {
 
-    getJobPostingsList(0).then((res) => {
+    eno.value = props.eno;
+
+    getJobPostingsList(eno.value).then((res) => {
 
       jobPostings.value = res.dtoList;
       pageNumList.value = res.pageNumList;

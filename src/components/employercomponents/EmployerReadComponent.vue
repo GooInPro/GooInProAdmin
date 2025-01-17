@@ -3,6 +3,7 @@
   import {deleteEmployer, readEmployer} from "../../api/employerapi/employerAPI.js";
   import {useRoute} from "vue-router";
   import CommonCheckModalComponent from "../../common/components/CommonCheckModalComponent.vue";
+  import JobPostingsListComponent from "../jobpostingscomponents/JobPostingsListComponent.vue";
 
   const route = useRoute();
 
@@ -99,6 +100,8 @@
           </button>
         </div>
       </template>
+
+      <JobPostingsListComponent :eno="route.params.eno" />
     </div>
   </div>
 </template>
