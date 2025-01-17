@@ -33,6 +33,7 @@ import {onMounted, ref, watch} from "vue";
 
   const pageNumList = ref([]);
   const currentPage = ref(1);
+  const searchName = ref('');
   const route = useRoute();
   const router = useRouter();
 
@@ -59,7 +60,7 @@ import {onMounted, ref, watch} from "vue";
 
     eno.value = newEno;
 
-    getJobPostingsList(eno.value).then((res) => {
+    getJobPostingsList(eno.value, currentPage, searchName.value).then((res) => {
 
       jobPostings.value = res.dtoList;
       pageNumList.value = res.pageNumList;
@@ -71,7 +72,7 @@ import {onMounted, ref, watch} from "vue";
 
     eno.value = props.eno;
 
-    getJobPostingsList(eno.value).then((res) => {
+    getJobPostingsList(eno.value, currentPage, searchName.value).then((res) => {
 
       jobPostings.value = res.dtoList;
       pageNumList.value = res.pageNumList;

@@ -7,7 +7,7 @@ export const getEmployerList = async (page, ename) => {
 
     const pageValue = (Number)(page || 1);
 
-    const url = ename
+    const url = ename && ename.length > 0
         ? `${host}/list?ename=${ename}&page=${pageValue}`
         : `${host}/list?page=${pageValue}`
 
