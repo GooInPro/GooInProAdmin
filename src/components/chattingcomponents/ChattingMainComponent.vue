@@ -12,6 +12,7 @@ const router = useRouter();
 const roomId = ref(route.params.roomId);
 const receiverEmail = ref(route.params.eemail);
 const eno = ref(route.params.eno);
+const pno = ref(route.params.pno);
 
 const stompClient = ref(null);
 const messages = ref([]);
@@ -88,9 +89,14 @@ onBeforeMount(() => {
 const leaveChatRoom = () => {
   deletePartChat(roomId.value).then((res) => {
     console.log(res);
-  })
+  });
   disconnect();
-  router.push('/employer/list'); // 원하는 경로로 리다이렉트
+
+  if (route.meta.role === 'employer') {
+    router.push('/employer/list');
+  } else if (route.meta.role === 'parttimer') {
+    router.push('/parttimer/list');
+  }
 };
 </script>
 

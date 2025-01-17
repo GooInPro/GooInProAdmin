@@ -1,7 +1,8 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router'; // useRouter 및 useRoute 추가
-import { detailPartTimer, deletePartTimer } from '../../api/parttimerapi/partTimerAPI.js'; // API 파일 경로에 맞게 수정
+import { detailPartTimer, deletePartTimer } from '../../api/parttimerapi/partTimerAPI.js';
+import {getPartChatRoom} from "../../api/chatroomapi/chatRoomAPI.js"; // API 파일 경로에 맞게 수정
 
 // 날짜 포맷팅 함수 (생년월일은 시간 제외, 등록일은 시간 포함)
 const formatDate = (dateStr, includeTime = false) => {
@@ -35,6 +36,8 @@ const error = ref(null);
 const route = useRoute();
 const router = useRouter(); // Router 객체 생성
 const pno = route.params.pno; // URL에서 pno 값을 받아옵니다.
+const pemail = ref('');
+const roomId = ref('');
 
 // 페이지 번호를 쿼리에서 가져오기
 const page = route.query.page;
@@ -46,6 +49,8 @@ const fetchPartTimerDetail = async () => {
     loading.value = true;
     const response = await detailPartTimer(pno); // pno에 맞는 상세 정보 호출
     partTimerDetail.value = response;
+    pemail.value = response.pemail
+    console.log(response);
   } catch (err) {
     error.value = '근로자 상세 정보를 불러오는 데 실패했습니다.';
   } finally {
@@ -71,6 +76,14 @@ const handleDelete = async () => {
     error.value = '근로자 삭제에 실패했습니다.';
   }
 };
+
+const startChattingClick = () => {
+  getPartChatRoom(pno).then((res) => {
+    roomId.value = res.rno;
+    router.push(`/chat/part/main/${roomId.value}/${pno}/${pemail.value}`);
+  })
+
+}
 
 // 컴포넌트가 마운트될 때 데이터 로드
 onMounted(fetchPartTimerDetail);
@@ -130,6 +143,15 @@ onMounted(fetchPartTimerDetail);
       <button @click="goBackToList" class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
         뒤로가기
       </button>
+
+      <button
+          class="px-6 py-2 bg-orange-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-400 transition"
+          @click="startChattingClick"
+      >
+        채팅하기
+      </button>
+
+
     </div>
   </div>
 </template>
