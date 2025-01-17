@@ -168,7 +168,7 @@ const formatDate = (dateString, includeTime = false) => {
           @click="changePage(page - 1)"
           class="px-4 py-2 rounded text-white bg-gray-300 hover:bg-gray-400"
       >
-        Prev
+        이전
       </button>
 
       <!-- 페이지 버튼 -->
@@ -188,7 +188,7 @@ const formatDate = (dateString, includeTime = false) => {
           @click="changePage(page + 1)"
           class="px-4 py-2 rounded text-white bg-gray-300 hover:bg-gray-400"
       >
-        Next
+        다음
       </button>
     </div>
   </div>
