@@ -17,7 +17,7 @@ const handleLogin = async (loginData) => {
     const success = await adminAuthStore.login(loginData)
 
     if (success) {
-      router.push('/employer')
+      router.push('/employer/list')
     } else {
       showErrorModal()
     }

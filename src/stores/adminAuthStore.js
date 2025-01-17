@@ -8,6 +8,19 @@ export const useAdminAuthStore = defineStore('adminAuth', () => {
     const adminNo = ref(localStorage.getItem('adminNo') || null)
     const isAuthenticated = ref(!!accessToken.value)
 
+    // 로그인 상태 확인
+    const checkAuth = () => {
+        const storedToken = localStorage.getItem('accessToken')
+        if (storedToken) {
+            accessToken.value = storedToken
+            refreshTokenValue.value = localStorage.getItem('refreshToken')
+            adminNo.value = localStorage.getItem('adminNo')
+            isAuthenticated.value = true
+            return true
+        }
+        return false
+    }
+
     // 로그인
     const login = async (loginData) => {
         try {
@@ -63,6 +76,7 @@ export const useAdminAuthStore = defineStore('adminAuth', () => {
         isAuthenticated,
         login,
         logout,
-        refreshAuth
+        refreshAuth,
+        checkAuth
     }
 })
