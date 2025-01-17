@@ -1,14 +1,19 @@
 <script setup>
   import {onMounted, ref} from "vue";
   import {deleteEmployer, readEmployer} from "../../api/employerapi/employerAPI.js";
-  import {useRoute} from "vue-router";
+  import {useRoute, useRouter} from "vue-router";
   import CommonCheckModalComponent from "../../common/components/CommonCheckModalComponent.vue";
+  import {getEmpChatRoom} from "../../api/chatroomapi/chatRoomAPI.js";
   import JobPostingsListComponent from "../jobpostingscomponents/JobPostingsListComponent.vue";
 
   const route = useRoute();
+  const router = useRouter();
 
   const employer = ref();
   const modalOpen = ref(false);
+  const eno = ref('');
+  const roomId = ref('');
+  const eemail = ref('');
 
   const deleteClick = () => {
 
@@ -20,12 +25,24 @@
     deleteEmployer(route.params.eno);
   }
 
+  const startChattingClick = () => {
+    getEmpChatRoom(eno.value).then((res) => {
+        roomId.value = res.rno;
+        console.log(roomId.value);
+        console.log(eemail.value);
+        router.push(`/chat/main/${roomId.value}/${eno.value}/${eemail.value}`);
+    })
+
+  }
+
   onMounted(() => {
 
     readEmployer(route.params.eno).then((res) => {
 
           console.log("API 응답:", res); // 확인용
           employer.value = res;
+          eno.value = res.eno;
+          eemail.value = res.eemail;
         })
         .catch((error) => {
 
@@ -97,6 +114,13 @@
               @click="deleteClick"
           >
             Delete
+          </button>
+
+          <button
+              class="px-6 py-2 bg-orange-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-400 transition"
+              @click="startChattingClick"
+          >
+            채팅하기
           </button>
         </div>
       </template>
