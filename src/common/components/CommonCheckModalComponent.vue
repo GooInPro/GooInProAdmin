@@ -1,5 +1,8 @@
 <script setup>
 import { ref } from 'vue';
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 
 // 첫 번째, 두 번째 모달 상태 관리
 const isFirstModalOpen = ref(true);
@@ -17,6 +20,10 @@ const props = defineProps({
   },
   fn: {
     type: Function,
+    required: true
+  },
+  afterPushLink: {
+    type: String,
     required: true
   }
 });
@@ -42,6 +49,7 @@ const closeModals = () => {
   isSecondModalOpen.value = false;
   isFirstModalOpen.value = false;
   emit('closeModal', false);
+  router.push({path: props.afterPushLink})
 };
 </script>
 

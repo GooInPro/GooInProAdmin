@@ -26,10 +26,7 @@
 
   const deleteFn = () => {
 
-    deleteEmployer(route.params.eno).then(() => {
-
-      router.push({path: `/employer/list`});
-    })
+    deleteEmployer(route.params.eno);
   }
 
   onMounted(() => {
@@ -54,6 +51,7 @@
       msg="삭제"
       :is-open="modalOpen"
       @close="modalOpen = false"
+      afterPushLink="/employer/list"
   />
 
   <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100 flex justify-center items-start py-10">
