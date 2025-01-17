@@ -28,7 +28,7 @@ const changePage = (page) => {
 
 // API 호출 후 데이터를 받아옴
 onMounted(() => {
-  getEmployerList(1).then((res) => {
+  getEmployerList(1, null).then((res) => {
     employers.value = res.dtoList;  // 받은 데이터에서 dtoList만 추출
     pageNumList.value = res.pageNumList;
     console.log(employers.value); // 콘솔로 데이터 확인
