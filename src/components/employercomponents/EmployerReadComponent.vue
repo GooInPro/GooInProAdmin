@@ -30,7 +30,7 @@
         roomId.value = res.rno;
         console.log(roomId.value);
         console.log(eemail.value);
-        router.push(`/chat/main/${roomId.value}/${eno.value}/${eemail.value}`);
+        router.push(`/chat/emp/main/${roomId.value}/${eno.value}/${eemail.value}`);
     })
 
   }
