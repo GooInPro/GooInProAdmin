@@ -28,7 +28,7 @@ function togglePagesMenu() {
       <a
           class="ml-6 text-lg font-bold text-blue-800 dark:text-blue-200"
       >
-        Windmill
+        GooInPro
       </a>
       </router-link>
       <ul class="mt-6">
