@@ -32,11 +32,14 @@
 
   const startChattingClick = () => {
 
-    const dto = {senderEmail: admid, recipientEmail: eemail.value};
+    const roomName = `${admid},${eemail.value}/employer`;
+
+    const dto = {roomName:roomName ,senderEmail: admid, recipientEmail: eemail.value};
 
     console.log(dto);
 
     findChatRoom(dto).then((res) => {
+      console.log(res);
       router.push(`/chat/chatting/${res.id}`);
     })
   }

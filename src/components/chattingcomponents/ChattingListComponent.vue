@@ -1,26 +1,43 @@
 <script setup>
 import { useAdminAuthStore } from "../../stores/adminAuthStore.js";
-import {  onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { getChatRoomList } from "../../api/chatapi/chatAPI.js";
-import {  useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 
 const adminAuthStore = useAdminAuthStore();
-const admid =  adminAuthStore.adminId;
+const admid = adminAuthStore.adminId;
 const data = ref([]);
+const filterData = ref([]);  // 필터링된 데이터 배열
 const router = useRouter();
+const activeFilter = ref('employer'); // 'employer' or 'parttimer'
 
+// 채팅방 목록을 가져오는 함수
 const getList = async () => {
   await getChatRoomList(admid).then((res) => {
     data.value = res;
+    filterData.value = res.filter((room) => room.roomName.includes('employer')); // 처음에 전체 데이터를 표시
     console.log(data.value);
   });
 };
 
+// 채팅방 클릭 시 해당 채팅방으로 이동
 const roomClick = (roomId) => {
-  // roomId를 사용하여 채팅방으로 이동
   router.push(`/chat/chatting/${roomId}`);
 };
 
+// employer 채팅방만 필터링
+const empChatList = () => {
+  filterData.value = data.value.filter((room) => room.roomName.includes('employer'));
+  activeFilter.value = 'employer';
+};
+
+// parttimer 채팅방만 필터링
+const partChatList = () => {
+  filterData.value = data.value.filter((room) => room.roomName.includes('parttimer'));
+  activeFilter.value = 'parttimer';
+};
+
+// 컴포넌트 마운트 시 채팅방 목록 가져오기
 onMounted(() => {
   getList();
 });
@@ -32,27 +49,48 @@ onMounted(() => {
       채팅방 목록
     </h1>
 
-    <div v-if="data.length === 0" class="text-center text-gray-500">
+    <div class="flex justify-center mb-6">
+      <!-- employer, parttimer 버튼 추가 -->
+      <button
+          @click="empChatList"
+          class="px-4 py-2 rounded mr-4 hover:bg-blue-600"
+          :class="{'bg-blue-500 text-white': activeFilter === 'employer', 'bg-gray-200': activeFilter !== 'employer'}"
+      >
+        Employer 채팅방
+      </button>
+      <button
+          @click="partChatList"
+          class="px-4 py-2 rounded hover:bg-green-600"
+          :class="{'bg-green-500 text-white': activeFilter === 'parttimer', 'bg-gray-200': activeFilter !== 'parttimer'}"
+      >
+        Part Timer 채팅방
+      </button>
+    </div>
+
+    <div v-if="filterData.length === 0" class="text-center text-gray-500">
       채팅방이 없습니다.
     </div>
 
     <div v-else>
       <ul class="space-y-4">
         <li
-            v-for="room in data"
+            v-for="room in filterData"
             :key="room.id"
-            class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out"
+            class="p-4 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-in-out border border-gray-300 hover:bg-gray-50"
+            :class="{'bg-blue-100': room.roomName.includes('employer'), 'bg-green-100': room.roomName.includes('parttimer')}"
         >
           <div class="flex items-center justify-between">
-            <!-- room.id를 인자로 전달 -->
-            <div class="text-lg font-semibold text-[#3393EA]" @click="roomClick(room.id)">
-              {{ room.roomName }}
+            <!-- "채팅방 이름:" 텍스트는 검정색, room.roomName은 파란색으로 표시 -->
+            <div class="text-lg font-semibold text-black">
+              채팅방 이름:
+              <span class="text-[#3393EA] cursor-pointer hover:text-blue-600" @click="roomClick(room.id)">
+                {{ room.roomName }}
+              </span>
             </div>
-            <div class="text-sm text-gray-500">{{ room.sentAt }}</div>
           </div>
-          <div class="mt-2 text-gray-700">
-            <span class="font-medium text-[#3393EA]">최근 메시지:</span>
-            {{ room.message || "새로운 메시지가 없습니다." }}
+          <!-- 마지막 메시지 내용 -->
+          <div class="mt-2 text-gray-700 text-sm">
+            {{ room.message }}
           </div>
         </li>
       </ul>
@@ -61,5 +99,5 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* You can customize styles here if needed */
+/* 스타일 추가 가능 */
 </style>

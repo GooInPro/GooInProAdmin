@@ -85,7 +85,9 @@ const handleDelete = async () => {
 
 const startChattingClick = () => {
 
-  const dto = {senderEmail: admid, recipientEmail: pemail.value};
+  const roomName = `${admid},${pemail.value}/parttimer`;
+
+  const dto = {roomName:roomName, senderEmail: admid, recipientEmail: pemail.value};
 
   console.log(dto);
 
