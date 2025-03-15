@@ -2,6 +2,8 @@
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router'; // useRouter 및 useRoute 추가
 import { detailPartTimer, deletePartTimer } from '../../api/parttimerapi/partTimerAPI.js';
+import {findChatRoom} from "../../api/chatapi/chatAPI.js";
+import {useAdminAuthStore} from "../../stores/adminAuthStore.js";
 
 
 // 날짜 포맷팅 함수 (생년월일은 시간 제외, 등록일은 시간 포함)
@@ -38,6 +40,9 @@ const router = useRouter(); // Router 객체 생성
 const pno = route.params.pno; // URL에서 pno 값을 받아옵니다.
 const pemail = ref('');
 const roomId = ref('');
+
+const adminAuthStore = useAdminAuthStore();
+const admid =  adminAuthStore.adminId;
 
 
 // 페이지 번호를 쿼리에서 가져오기
@@ -78,15 +83,17 @@ const handleDelete = async () => {
   }
 };
 
-// const startChattingClick = () => {
-//   getPartChatRoom(pno).then((res) => {
-//     roomId.value = res.rno;
-//     router.push(`/chat/part/main/${roomId.value}/${pno}/${pemail.value}`);
-//   })
-//
-// }
+const startChattingClick = () => {
 
-// 컴포넌트가 마운트될 때 데이터 로드
+  const dto = {senderEmail: admid, recipientEmail: pemail.value};
+
+  console.log(dto);
+
+  findChatRoom(dto).then((res) => {
+    router.push(`/chat/chatting/${res.id}`);
+  })
+}
+
 
 onMounted(fetchPartTimerDetail);
 </script>

@@ -71,6 +71,7 @@ const sendMessage = () => {
 
 const handleOutClick = () => {
   modalOpen.value = true;
+
 }
 
 const leaveRoomFn = () => {

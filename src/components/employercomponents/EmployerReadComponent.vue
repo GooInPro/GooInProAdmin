@@ -4,6 +4,8 @@
   import {useRoute, useRouter} from "vue-router";
   import CommonCheckModalComponent from "../../common/components/CommonCheckModalComponent.vue";
   import JobPostingsListComponent from "../jobpostingscomponents/JobPostingsListComponent.vue";
+  import {findChatRoom} from "../../api/chatapi/chatAPI.js";
+  import {useAdminAuthStore} from "../../stores/adminAuthStore.js";
 
   const route = useRoute();
   const router = useRouter();
@@ -13,6 +15,9 @@
   const eno = ref('');
   const roomId = ref('');
   const eemail = ref('');
+
+  const adminAuthStore = useAdminAuthStore();
+  const admid =  adminAuthStore.adminId;
 
   const deleteClick = () => {
 
@@ -24,15 +29,17 @@
     deleteEmployer(route.params.eno);
   }
 
-  // const startChattingClick = () => {
-  //   getEmpChatRoom(eno.value).then((res) => {
-  //       roomId.value = res.rno;
-  //       console.log(roomId.value);
-  //       console.log(eemail.value);
-  //       router.push(`/chat/emp/main/${roomId.value}/${eno.value}/${eemail.value}`);
-  //   })
-  //
-  // }
+
+  const startChattingClick = () => {
+
+    const dto = {senderEmail: admid, recipientEmail: eemail.value};
+
+    console.log(dto);
+
+    findChatRoom(dto).then((res) => {
+      router.push(`/chat/chatting/${res.id}`);
+    })
+  }
 
   onMounted(() => {
 

@@ -32,6 +32,8 @@ export const outChatRoom = async (dto) => {
 
     const res = await axios.put(`${host}/chatroom/out`, dto);
 
+    console.log(res.data);
+
     return res.data;
 }
 
@@ -40,35 +42,8 @@ export const findChatRoom = async (dto) => {
 
     const res = await axios.post(`${host}/chatroom/find`, dto);
 
-    return res.data;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-export const getMessage = async (roomId) => {
-
-    const res = await axios.get(`${host}/chat?roomId=${roomId}`)
-
-    console.log(res);
+    console.log(res.data);
 
     return res.data;
 }
 
-export const sendMessage = async (body) => {
-
-    const res = await axios.post(`${host}/send`, body);
-
-    console.log(res);
-
-    return res.data;
-}

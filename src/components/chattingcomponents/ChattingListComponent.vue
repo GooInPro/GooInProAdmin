@@ -1,8 +1,8 @@
 <script setup>
 import { useAdminAuthStore } from "../../stores/adminAuthStore.js";
-import { computed, onMounted, ref, watch } from "vue";
+import {  onMounted, ref } from "vue";
 import { getChatRoomList } from "../../api/chatapi/chatAPI.js";
-import { useRoute, useRouter } from "vue-router";
+import {  useRouter } from "vue-router";
 
 const adminAuthStore = useAdminAuthStore();
 const admid =  adminAuthStore.adminId;
