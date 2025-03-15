@@ -3,7 +3,6 @@
   import {deleteEmployer, readEmployer} from "../../api/employerapi/employerAPI.js";
   import {useRoute, useRouter} from "vue-router";
   import CommonCheckModalComponent from "../../common/components/CommonCheckModalComponent.vue";
-  import {getEmpChatRoom} from "../../api/chatroomapi/chatRoomAPI.js";
   import JobPostingsListComponent from "../jobpostingscomponents/JobPostingsListComponent.vue";
 
   const route = useRoute();
@@ -25,15 +24,15 @@
     deleteEmployer(route.params.eno);
   }
 
-  const startChattingClick = () => {
-    getEmpChatRoom(eno.value).then((res) => {
-        roomId.value = res.rno;
-        console.log(roomId.value);
-        console.log(eemail.value);
-        router.push(`/chat/emp/main/${roomId.value}/${eno.value}/${eemail.value}`);
-    })
-
-  }
+  // const startChattingClick = () => {
+  //   getEmpChatRoom(eno.value).then((res) => {
+  //       roomId.value = res.rno;
+  //       console.log(roomId.value);
+  //       console.log(eemail.value);
+  //       router.push(`/chat/emp/main/${roomId.value}/${eno.value}/${eemail.value}`);
+  //   })
+  //
+  // }
 
   onMounted(() => {
 

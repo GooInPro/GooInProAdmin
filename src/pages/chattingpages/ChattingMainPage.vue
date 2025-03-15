@@ -1,13 +1,13 @@
-<script setup>
+<!--<script setup>-->
 
-import ChattingMainComponent from "../../components/chattingcomponents/ChattingMainComponent.vue";
-import SideBar from "../../layout/SideBar.vue";
-</script>
+<!--import ChattingMainComponent from "../../components/chattingcomponents/ChattingMainComponent.vue";-->
+<!--import SideBar from "../../layout/SideBar.vue";-->
+<!--</script>-->
 
-<template>
-    <ChattingMainComponent/>
-</template>
+<!--<template>-->
+<!--    <ChattingMainComponent/>-->
+<!--</template>-->
 
-<style scoped>
+<!--<style scoped>-->
 
-</style>
+<!--</style>-->

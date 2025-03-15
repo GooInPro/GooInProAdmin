@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router'; // useRouter 및 useRoute 추가
 import { detailPartTimer, deletePartTimer } from '../../api/parttimerapi/partTimerAPI.js';
-import {getPartChatRoom} from "../../api/chatroomapi/chatRoomAPI.js"; // API 파일 경로에 맞게 수정
+
 
 // 날짜 포맷팅 함수 (생년월일은 시간 제외, 등록일은 시간 포함)
 const formatDate = (dateStr, includeTime = false) => {
@@ -78,13 +78,13 @@ const handleDelete = async () => {
   }
 };
 
-const startChattingClick = () => {
-  getPartChatRoom(pno).then((res) => {
-    roomId.value = res.rno;
-    router.push(`/chat/part/main/${roomId.value}/${pno}/${pemail.value}`);
-  })
-
-}
+// const startChattingClick = () => {
+//   getPartChatRoom(pno).then((res) => {
+//     roomId.value = res.rno;
+//     router.push(`/chat/part/main/${roomId.value}/${pno}/${pemail.value}`);
+//   })
+//
+// }
 
 // 컴포넌트가 마운트될 때 데이터 로드
 
