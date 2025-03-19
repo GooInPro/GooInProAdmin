@@ -36,6 +36,8 @@
 
     const dto = {roomName:roomName ,senderEmail: admid, recipientEmail: eemail.value};
 
+    // const dto = {senderEmail: admid, recipientEmail: eemail.value};
+
     console.log(dto);
 
     findChatRoom(dto).then((res) => {
