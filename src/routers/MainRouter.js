@@ -48,10 +48,10 @@ router.beforeEach((to, from, next) => {
     // 보호된 경로들 체크 (admin, employer 등 모든 보호 경로)
     if (to.path.startsWith('/admin') ||
         to.path.startsWith('/employer') ||
-        to.path.startsWith('/jobpostings') ||
+        to.path.startsWith('/jobPostings') ||
         to.path.startsWith('/qna') ||
         to.path.startsWith('/chat') ||
-        to.path.startsWith('/parttimer') ||
+        to.path.startsWith('/partTimer') ||
         to.path.startsWith('/graph') ||
         to.path.startsWith('/complaints')) {
 
