@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAdminAuthStore } from '../../stores/adminauthstore'
 import CommonNoticeModalComponent from "../../common/components/CommonNoticeModalComponent.vue"
+import {useAdminAuthStore} from "../../stores/adminAuthStore.js";
 
 const isLoading = ref(false)
 const loginForm = ref({

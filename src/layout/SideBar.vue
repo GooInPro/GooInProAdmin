@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAdminAuthStore } from '../stores/adminauthstore'
+import {useAdminAuthStore} from "../stores/adminAuthStore.js";
 
 const router = useRouter()
 const authStore = useAdminAuthStore()
