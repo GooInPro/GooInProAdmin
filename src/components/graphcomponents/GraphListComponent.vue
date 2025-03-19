@@ -4,6 +4,7 @@ import { Chart, DoughnutController, ArcElement, Tooltip, Legend } from 'chart.js
 import {getCountFComplaints, getCountFQNA, getCountTComplaints, getCountTQNA} from "../../api/graphapi/graphAPI.js";
 import {useAdminAuthStore} from "../../stores/adminAuthStore.js";
 
+
 // Chart.js 구성 요소 등록
 Chart.register(DoughnutController, ArcElement, Tooltip, Legend)
 
