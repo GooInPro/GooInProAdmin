@@ -1,22 +1,46 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAdminAuthStore } from '../../stores/adminauthstore'
+import CommonNoticeModalComponent from "../../common/components/CommonNoticeModalComponent.vue"
 
 const isLoading = ref(false)
 const loginForm = ref({
   admid: '',
   admpw: ''
 })
+const router = useRouter()
+const adminAuthStore = useAdminAuthStore()
 
-const emit = defineEmits(['login'])
+const isModalOpen = ref(false)
+const modalMessage = ref('')
 
 const handleLogin = async () => {
   try {
     console.log('로그인 시도:', loginForm.value)  // 로그 추가
     isLoading.value = true
-    emit('login', loginForm.value)
+    const success = await adminAuthStore.login(loginForm.value)
+
+    if (success) {
+      router.push('/graph/list')
+    } else {
+      showErrorModal()
+    }
+  } catch (error) {
+    console.error('로그인 실패:', error)
+    showErrorModal()
   } finally {
     isLoading.value = false
   }
+}
+
+const showErrorModal = () => {
+  modalMessage.value = '로그인에 실패하셨습니다'
+  isModalOpen.value = true
+}
+
+const handleCloseModal = () => {
+  isModalOpen.value = false
 }
 </script>
 
@@ -63,5 +87,12 @@ const handleLogin = async () => {
         </button>
       </div>
     </form>
+
+    <CommonNoticeModalComponent
+        v-if="isModalOpen"
+        :is-open="isModalOpen"
+        :msg="modalMessage"
+        @close-modal="handleCloseModal"
+    />
   </div>
 </template>
