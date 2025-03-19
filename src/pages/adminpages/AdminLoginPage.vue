@@ -3,7 +3,8 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import AdminLoginComponent from '../../components/admincomponents/AdminLoginComponent.vue'
 import CommonNoticeModalComponent from '../../common/components/CommonNoticeModalComponent.vue'
-import { useAdminAuthStore } from '../../stores/adminauthstore'
+import {useAdminAuthStore} from "../../stores/adminAuthStore.js";
+
 
 const router = useRouter()
 const adminAuthStore = useAdminAuthStore()
