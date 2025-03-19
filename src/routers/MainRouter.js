@@ -12,6 +12,7 @@ import graphRouter from "./GraphRouter.js";
 import AdminRouter from "./AdminRouter.js";
 import {useAdminAuthStore} from "../stores/adminAuthStore.js";
 
+
 const routes = [
     EmployerRouter,
     JobPostingsRouter,
