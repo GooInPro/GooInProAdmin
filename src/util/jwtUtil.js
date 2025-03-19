@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useAdminAuthStore } from "../stores/adminauthstore";
+import {useAdminAuthStore} from "../stores/adminAuthStore.js";
 
 const jwtAxios = axios.create();
 

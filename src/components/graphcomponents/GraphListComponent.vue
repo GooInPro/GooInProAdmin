@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { Chart, DoughnutController, ArcElement, Tooltip, Legend } from 'chart.js'
 import {getCountFComplaints, getCountFQNA, getCountTComplaints, getCountTQNA} from "../../api/graphapi/graphAPI.js";
+import {useAdminAuthStore} from "../../stores/adminAuthStore.js";
 
 // Chart.js 구성 요소 등록
 Chart.register(DoughnutController, ArcElement, Tooltip, Legend)
@@ -10,6 +11,8 @@ const FComplaint = ref(0)
 const TComplaint = ref(0)
 const FQNA = ref(0)
 const TQNA = ref(0)
+
+const adminAuthStore = useAdminAuthStore();
 
 const getAPI = async () => {
   const [resolved, pending] = await Promise.all([

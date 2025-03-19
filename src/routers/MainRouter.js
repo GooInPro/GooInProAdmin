@@ -1,5 +1,5 @@
 import {createRouter, createWebHistory} from "vue-router";
-import { useAdminAuthStore } from '../stores/adminauthstore'
+
 
 import EmployerRouter from "./EmployerRouter.js";
 import JobPostingsRouter from "./JobPostingsRouter.js";
@@ -10,6 +10,8 @@ import PartTimerRouter from "./PartTimerRouter.js";
 import ComplaintsRouter from "./ComplaintsRouter.js";
 import graphRouter from "./GraphRouter.js";
 import AdminRouter from "./AdminRouter.js";
+import {useAdminAuthStore} from "../stores/adminAuthStore.js";
+
 
 const routes = [
     EmployerRouter,
